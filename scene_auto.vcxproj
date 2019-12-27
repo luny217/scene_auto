@@ -68,13 +68,20 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>.\tools\iniparser\include;.\tools\ini2sourceTool\include;.\tools\configaccess\include;.\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;CFG_DEBUG_LOG_ON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>pthread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -110,6 +117,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="tools\configaccess\include\hi_confaccess.h" />
+    <ClInclude Include="tools\configaccess\include\hi_list.h" />
+    <ClInclude Include="tools\configaccess\include\hi_type.h" />
+    <ClInclude Include="tools\configaccess\include\linux_cbb_list.h" />
+    <ClInclude Include="tools\iniparser\include\dictionary.h" />
+    <ClInclude Include="tools\iniparser\include\iniparser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\hi_scene.c" />
+    <ClCompile Include="src\core\hi_scene_adapter.c" />
+    <ClCompile Include="src\core\hi_scene_setparam.c" />
+    <ClCompile Include="src\sample\scene_loadparam.c" />
+    <ClCompile Include="src\sample\scene_sample.c" />
+    <ClCompile Include="tools\configaccess\src\hi_confaccess.c" />
+    <ClCompile Include="tools\iniparser\src\dictionary.c" />
+    <ClCompile Include="tools\iniparser\src\iniparser.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

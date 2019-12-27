@@ -1,17 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="tools">
+      <UniqueIdentifier>{c9c3f91a-7249-4c1f-9f8a-7eb0e41d8f65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="tools\iniparser">
+      <UniqueIdentifier>{1d89adca-52cb-4d9c-968f-bfeeb803bc3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="tools\iniparser\include">
+      <UniqueIdentifier>{2d52a8b8-1645-4295-9be7-310d029fea5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tools\iniparser\src">
+      <UniqueIdentifier>{38fd875c-a469-4d55-8341-819713dd5243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\configaccess">
+      <UniqueIdentifier>{49595657-3aa6-4dea-aa36-12a693c45930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\configaccess\include">
+      <UniqueIdentifier>{9693cf68-6ec9-4b1b-a72a-37c4a8fca108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\configaccess\src">
+      <UniqueIdentifier>{0a2bd92e-9667-49a9-9184-c83a802f8b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{057e0ba3-55c9-4d44-9a56-b2cb36fbc42d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{f192d358-f270-4884-97f1-6c844f4b24ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sample">
+      <UniqueIdentifier>{6153f103-aa54-4662-a0f7-2c88f089d6e3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tools\iniparser\include\dictionary.h">
+      <Filter>tools\iniparser\include</Filter>
+    </ClInclude>
+    <ClInclude Include="tools\iniparser\include\iniparser.h">
+      <Filter>tools\iniparser\include</Filter>
+    </ClInclude>
+    <ClInclude Include="tools\configaccess\include\hi_type.h">
+      <Filter>tools\configaccess\include</Filter>
+    </ClInclude>
+    <ClInclude Include="tools\configaccess\include\linux_cbb_list.h">
+      <Filter>tools\configaccess\include</Filter>
+    </ClInclude>
+    <ClInclude Include="tools\configaccess\include\hi_confaccess.h">
+      <Filter>tools\configaccess\include</Filter>
+    </ClInclude>
+    <ClInclude Include="tools\configaccess\include\hi_list.h">
+      <Filter>tools\configaccess\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tools\iniparser\src\dictionary.c">
+      <Filter>tools\iniparser\src</Filter>
+    </ClCompile>
+    <ClCompile Include="tools\iniparser\src\iniparser.c">
+      <Filter>tools\iniparser\src</Filter>
+    </ClCompile>
+    <ClCompile Include="tools\configaccess\src\hi_confaccess.c">
+      <Filter>tools\configaccess\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\hi_scene.c">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\scene_loadparam.c">
+      <Filter>src\sample</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\scene_sample.c">
+      <Filter>src\sample</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\hi_scene_setparam.c">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\hi_scene_adapter.c">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
