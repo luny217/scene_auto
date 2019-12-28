@@ -67,6 +67,22 @@ static HI_List_Head_S s_stCONFACCESSList = HI_LIST_INIT_HEAD_DEFINE(s_stCONFACCE
 /** configure count in list */
 static HI_S32 s_s32CONFACCESSCount = 0;
 
+char * dirname(char * full_path)
+{
+    char drive[_MAX_DRIVE];
+    char dir[_MAX_DIR];
+    char fname[_MAX_FNAME];
+    char ext[_MAX_EXT];
+    errno_t err;
+    err = _splitpath_s(full_path, drive, _MAX_DRIVE, dir, _MAX_DIR, fname,  _MAX_FNAME, ext, _MAX_EXT);
+    if (err != 0)
+    {
+        printf("Error splitting the path. Error code %d.\n", err);
+        exit(1);
+    }
+    sprintf(full_path, "%s%s", drive, dir);
+    return full_path;
+}
 
 static HI_VOID CONFACCESS_DelModuleList(CONFACCESS_CFG_NODE_S *pstCfgNode)
 {
@@ -91,7 +107,7 @@ static HI_VOID CONFACCESS_DelModuleList(CONFACCESS_CFG_NODE_S *pstCfgNode)
 static HI_S32 CONFACCESS_Init(const HI_CHAR *pszCfgName, const HI_CHAR *pszCfgPath, HI_U32 *pu32ModuleNum)
 {
     CONFACCESS_CFG_NODE_S *pstCfgPos = NULL;
-    HI_CHAR aszCfgPath[HI_CONFACCESS_PATH_MAX_LEN];
+    HI_CHAR aszCfgPath[HI_CONFACCESS_PATH_MAX_LEN] = {0};
     /* Malloc CfgNode Memory */
     pstCfgPos = (CONFACCESS_CFG_NODE_S *)malloc(sizeof(CONFACCESS_CFG_NODE_S));
     HI_SCENECOMM_CHECK_POINTER(pstCfgPos, HI_CONFACCESS_EMALLOC);
@@ -116,7 +132,7 @@ static HI_S32 CONFACCESS_Init(const HI_CHAR *pszCfgName, const HI_CHAR *pszCfgPa
     snprintf(pstCfgPos->stModule.szIniFile, HI_CONFACCESS_PATH_MAX_LEN, "%s", pszCfgPath);
 
     strncpy(aszCfgPath, pszCfgPath, strlen(pszCfgPath));
-    /*dirname(aszCfgPath)*/;
+    dirname(aszCfgPath);
 
     /* Get Module Count and Default Path */
     HI_S32 s32ModuleNum = iniparser_getint(pstCfgPos->stModule.pstIniDir, (HI_CHAR *)"module:module_num", 0);;
@@ -140,6 +156,8 @@ static HI_S32 CONFACCESS_Init(const HI_CHAR *pszCfgName, const HI_CHAR *pszCfgPa
             HI_SCENECOMM_SAFE_FREE(pstCfgPos);
             return HI_CONFACCESS_EMALLOC;
         }
+
+        memset(pstModuleInfo, 0x0, sizeof(CONFACCESS_MODULE_S));
 
         /* Module Name */
         const HI_CHAR *pazString = NULL;

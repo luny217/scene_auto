@@ -21,18 +21,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <unistd.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
-#if __cplusplus
 extern "C" {
 #endif
-#endif /* __cplusplus */
 
 /*---------------------------------------------------------------------------
                                 New types
  ---------------------------------------------------------------------------*/
-
+typedef unsigned int ssize_t;
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -44,49 +42,19 @@ extern "C" {
   hash function.
  */
 /*-------------------------------------------------------------------------*/
-/** "CL_" is comment line's the head of name*/
-#define CL_NSBC                1  /** 1,No space before comment;                           example:|;comment*/
-#define CL_AKLR                2  /** 2,At the key line's right;                           example:|key = value    ;commnet*/
-#define CL_CLINE               3  /** 3,Line of commnet which at the key line's behind;    example;|               ;comment*/
-#define CL_SLINE               4  /** 4,Space Line;                                        example;|\r\n*/
-
-typedef struct _dictionary_
-{
+typedef struct _dictionary_ {
     int             n ;     /** Number of entries in dictionary */
-    int         size ;  /** Storage size */
-    char          **val ;   /** List of string values */
-    char          **key ;   /** List of string keys */
-    unsigned       *hash ;  /** List of hash values for keys */
-
-    /*2006/03/11 blair add : save comment and space Line*/
-    int             commN;      /** Number of comment in dictionary */
-    int             commSize;   /** Storage size of comment*/
-    char          **comment;    /** List of string comment and space Line*/
-    unsigned       *commHash;   /** List of hash values for keys ,signed the comment line is the key has the comment */
-    unsigned char *commPlace;  /** remember the comment at where the key keyhash signed.
-                                                0,the line has no comment;
-                                                1,no space before comment;
-                                                2,at the key line's right;
-                                                3,Line of commnet or at the key line's behind;
-                                                4,Space Line;*/
+    ssize_t         size ;  /** Storage size */
+    char        **  val ;   /** List of string values */
+    char        **  key ;   /** List of string keys */
+    unsigned     *  hash ;  /** List of hash values for keys */
 } dictionary ;
 
 
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
-void *mem_double(void *ptr, int size);
-/*-------------------------------------------------------------------------*/
-/**
-  @brief    Duplicate a string
-  @param    s String to duplicate
-  @return   Pointer to a newly allocated string, to be freed with free()
 
-  This is a replacement for strdup(). This implementation is provided
-  for systems that do not have it.
- */
-/*--------------------------------------------------------------------------*/
-char *xstrdup(const char *s);
 /*-------------------------------------------------------------------------*/
 /**
   @brief    Compute the hash key for a string.
@@ -99,7 +67,7 @@ char *xstrdup(const char *s);
   by comparing the key itself in last resort.
  */
 /*--------------------------------------------------------------------------*/
-unsigned dictionary_hash(const char *key);
+unsigned dictionary_hash(const char * key);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -112,7 +80,7 @@ unsigned dictionary_hash(const char *key);
   dictionary, give size=0.
  */
 /*--------------------------------------------------------------------------*/
-dictionary *dictionary_new(int size);
+dictionary * dictionary_new(size_t size);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -123,7 +91,7 @@ dictionary *dictionary_new(int size);
   Deallocate a dictionary object and all memory associated to it.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_del(dictionary *vd);
+void dictionary_del(dictionary * vd);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -139,7 +107,7 @@ void dictionary_del(dictionary *vd);
   dictionary object, you should not try to free it or modify it.
  */
 /*--------------------------------------------------------------------------*/
-const char *dictionary_get(const dictionary *d, const char *key, const char *def);
+const char * dictionary_get(const dictionary * d, const char * key, const char * def);
 
 
 /*-------------------------------------------------------------------------*/
@@ -168,7 +136,7 @@ const char *dictionary_get(const dictionary *d, const char *key, const char *def
   This function returns non-zero in case of failure.
  */
 /*--------------------------------------------------------------------------*/
-int dictionary_set(dictionary *vd, const char *key, const char *val);
+int dictionary_set(dictionary * vd, const char * key, const char * val);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -181,7 +149,7 @@ int dictionary_set(dictionary *vd, const char *key, const char *val);
   key cannot be found.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_unset(dictionary *d, const char *key);
+void dictionary_unset(dictionary * d, const char * key);
 
 
 /*-------------------------------------------------------------------------*/
@@ -196,12 +164,10 @@ void dictionary_unset(dictionary *d, const char *key);
   output file pointers.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_dump(const dictionary *d, FILE *out);
+void dictionary_dump(const dictionary * d, FILE * out);
 
 #ifdef __cplusplus
-#if __cplusplus
 }
 #endif
-#endif /* __cplusplus */
 
 #endif

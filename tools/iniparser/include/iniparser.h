@@ -7,16 +7,6 @@
 */
 /*--------------------------------------------------------------------------*/
 
-/*
-readme:
-    1. the same config item should not be existed, otherwise parser error occured.
-    2. to section, '[',']' should be written at the same line, charactor expect
-        space should not appeared in the section line.
-    3. key and its corresponding value should be appeared at the same line.
-    4. Please do not use such as'\r','\n','[',']', ';' ', and other special characters.
-    5. ';' as a comment character, all subsequent characters will be considered a comment.
-*/
-
 #ifndef _INIPARSER_H_
 #define _INIPARSER_H_
 
@@ -38,19 +28,20 @@ readme:
 #include "dictionary.h"
 
 #ifdef __cplusplus
-#if __cplusplus
 extern "C" {
 #endif
-#endif /* __cplusplus */
 
-#define KVCSIZE             512         /*KEY and VALUE and COMMENT'size is 512*/
+/*-------------------------------------------------------------------------*/
+/**
+  @brief    Configure a function to receive the error messages.
+  @param    errback  Function to call.
 
+  By default, the error will be printed on stderr. If a null pointer is passed
+  as errback the error callback will be switched back to default.
+ */
+/*--------------------------------------------------------------------------*/
 
-int iniparser_add_entry(
-    dictionary *d,
-    const char *sec,
-    const char *key,
-    const char *val); /*20060311 blair modify :add documents*/
+void iniparser_set_error_callback(int (*errback)(const char *, ...));
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -71,7 +62,7 @@ int iniparser_add_entry(
  */
 /*--------------------------------------------------------------------------*/
 
-int iniparser_getnsec(const dictionary *d);
+int iniparser_getnsec(const dictionary * d);
 
 
 /*-------------------------------------------------------------------------*/
@@ -89,7 +80,7 @@ int iniparser_getnsec(const dictionary *d);
  */
 /*--------------------------------------------------------------------------*/
 
-const char *iniparser_getsecname(const dictionary *d, int n);
+const char * iniparser_getsecname(const dictionary * d, int n);
 
 
 /*-------------------------------------------------------------------------*/
@@ -104,7 +95,7 @@ const char *iniparser_getsecname(const dictionary *d, int n);
  */
 /*--------------------------------------------------------------------------*/
 
-void iniparser_dump_ini(const dictionary *d, FILE *f);
+void iniparser_dump_ini(const dictionary * d, FILE * f);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -119,7 +110,7 @@ void iniparser_dump_ini(const dictionary *d, FILE *f);
  */
 /*--------------------------------------------------------------------------*/
 
-void iniparser_dumpsection_ini(const dictionary *d, const char *s, FILE *f);
+void iniparser_dumpsection_ini(const dictionary * d, const char * s, FILE * f);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -134,7 +125,7 @@ void iniparser_dumpsection_ini(const dictionary *d, const char *s, FILE *f);
   purposes mostly.
  */
 /*--------------------------------------------------------------------------*/
-void iniparser_dump(const dictionary *d, FILE *f);
+void iniparser_dump(const dictionary * d, FILE * f);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -144,7 +135,7 @@ void iniparser_dump(const dictionary *d, FILE *f);
   @return   Number of keys in section
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_getsecnkeys(const dictionary *d, const char *s);
+int iniparser_getsecnkeys(const dictionary * d, const char * s);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -162,7 +153,7 @@ int iniparser_getsecnkeys(const dictionary *d, const char *s);
   a string allocated in the dictionary; do not free or modify them.
  */
 /*--------------------------------------------------------------------------*/
-const char **iniparser_getseckeys(const dictionary *d, const char *s, const char **keys);
+const char ** iniparser_getseckeys(const dictionary * d, const char * s, const char ** keys);
 
 
 /*-------------------------------------------------------------------------*/
@@ -180,7 +171,7 @@ const char **iniparser_getseckeys(const dictionary *d, const char *s, const char
   the dictionary, do not free or modify it.
  */
 /*--------------------------------------------------------------------------*/
-const char *iniparser_getstring(const dictionary *d, const char *key, const char *def);
+const char * iniparser_getstring(const dictionary * d, const char * key, const char * def);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -209,7 +200,35 @@ const char *iniparser_getstring(const dictionary *d, const char *key, const char
   Credits: Thanks to A. Becker for suggesting strtol()
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_getint(const dictionary *d, const char *key, int notfound);
+int iniparser_getint(const dictionary * d, const char * key, int notfound);
+
+/*-------------------------------------------------------------------------*/
+/**
+  @brief    Get the string associated to a key, convert to an long int
+  @param    d Dictionary to search
+  @param    key Key string to look for
+  @param    notfound Value to return in case of error
+  @return   integer
+
+  This function queries a dictionary for a key. A key as read from an
+  ini file is given as "section:key". If the key cannot be found,
+  the notfound value is returned.
+
+  Supported values for integers include the usual C notation
+  so decimal, octal (starting with 0) and hexadecimal (starting with 0x)
+  are supported. Examples:
+
+  - "42"      ->  42
+  - "042"     ->  34 (octal -> decimal)
+  - "0x42"    ->  66 (hexa  -> decimal)
+
+  Warning: the conversion may overflow in various ways. Conversion is
+  totally outsourced to strtol(), see the associated man page for overflow
+  handling.
+ */
+/*--------------------------------------------------------------------------*/
+long int iniparser_getlongint(const dictionary * d, const char * key, long int notfound);
+
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -224,7 +243,7 @@ int iniparser_getint(const dictionary *d, const char *key, int notfound);
   the notfound value is returned.
  */
 /*--------------------------------------------------------------------------*/
-double iniparser_getdouble(const dictionary *d, const char *key, double notfound);
+double iniparser_getdouble(const dictionary * d, const char * key, double notfound);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -258,7 +277,7 @@ double iniparser_getdouble(const dictionary *d, const char *key, double notfound
   necessarily have to be 0 or 1.
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_getboolean(const dictionary *d, const char *key, int notfound);
+int iniparser_getboolean(const dictionary * d, const char * key, int notfound);
 
 
 /*-------------------------------------------------------------------------*/
@@ -274,7 +293,7 @@ int iniparser_getboolean(const dictionary *d, const char *key, int notfound);
   It is Ok to set val to NULL.
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_set(dictionary *ini, const char *entry, const char *val);
+int iniparser_set(dictionary * ini, const char * entry, const char * val);
 
 
 /*-------------------------------------------------------------------------*/
@@ -287,7 +306,7 @@ int iniparser_set(dictionary *ini, const char *entry, const char *val);
   If the given entry can be found, it is deleted from the dictionary.
  */
 /*--------------------------------------------------------------------------*/
-void iniparser_unset(dictionary *ini, const char *entry);
+void iniparser_unset(dictionary * ini, const char * entry);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -301,7 +320,7 @@ void iniparser_unset(dictionary *ini, const char *entry);
   of querying for the presence of sections in a dictionary.
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_find_entry(const dictionary *ini, const char *entry) ;
+int iniparser_find_entry(const dictionary * ini, const char * entry) ;
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -317,28 +336,7 @@ int iniparser_find_entry(const dictionary *ini, const char *entry) ;
   The returned dictionary must be freed using iniparser_freedict().
  */
 /*--------------------------------------------------------------------------*/
-dictionary *iniparser_load(const char *ininame);
-
-
-/*-------------------------------------------------------------------------*/
-/**
-  @brief    add comment
-  @param  ini     Dictionary to modify
-  @param  sec    section string
-  @param  key    Key string
-  @param  comment    comment string
-  @return  0 success, -1 failed
-
-  save comment and space Line.
- */
-/*--------------------------------------------------------------------------*/
-int iniparser_add_comment(
-    dictionary          *d,
-    const char          *sec,
-    const char          *key,
-    const char          *comment,
-    const unsigned char place);
-
+dictionary * iniparser_load(const char * ininame);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -351,13 +349,10 @@ int iniparser_add_comment(
   gets out of the current context.
  */
 /*--------------------------------------------------------------------------*/
-void iniparser_freedict(dictionary *d);
+void iniparser_freedict(dictionary * d);
 
 #ifdef __cplusplus
-#if __cplusplus
 }
 #endif
-#endif /* __cplusplus */
 
 #endif
-

@@ -1519,6 +1519,7 @@ HI_S32 SCENE_LoadStaticShading(const HI_CHAR *pszIniModule, HI_SCENE_STATIC_SHAD
 static HI_S32 g_enGmc = NR_MOTION_MODE_NORMAL;
 
 
+#if 0
 static void PrintNRx(HI_SCENE_3DNR_VI_S *pVIX, HI_SCENE_3DNR_VPSS_S *pVPX)
 {
     HI_SCENE_3DNR_VI_IEy  *vi_pi   = &( pVIX->IEy );
@@ -1700,6 +1701,7 @@ static void PrintNRx(HI_SCENE_3DNR_VI_S *pVIX, HI_SCENE_3DNR_VPSS_S *pVPX)
 
     printf("\n******************************************************************************\n");
 }
+#endif
 
 HI_S32 SCENE_LoadDynamicThreeDNR(const HI_CHAR *pszIniModule, HI_SCENE_DYNAMIC_THREEDNR_S *pstDynamicThreeDnr)
 {
@@ -4301,7 +4303,7 @@ HI_S32 HI_SCENE_CreateParam(HI_CHAR *pdirname, HI_SCENE_PARAM_S *pstSceneParam, 
         return HI_SUCCESS;
     }
 
-    snprintf(acInipath, SCENETOOL_MAX_FILESIZE, "%s%s", pdirname, "/config_cfgaccess_hd.ini");
+    snprintf(acInipath, SCENETOOL_MAX_FILESIZE, "%s%s", pdirname, "\\config_cfgaccess_hd.ini");
     printf("The iniPath is %s.\n", acInipath);
 
     s32Ret = HI_CONFACCESS_Init(SCENE_INIPARAM, acInipath, &u32ModuleNum);
