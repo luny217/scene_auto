@@ -213,6 +213,10 @@ HI_S32 HI_SCENE_SetStaticAE_AutoGenerate(VI_PIPE ViPipe, HI_U8 u8Index)
     stExposureAttr.u8AERunInterval = g_astScenePipeParam[u8Index].stStaticAe.u8AERunInterval;
     stExposureAttr.stAuto.stExpTimeRange.u32Max = g_astScenePipeParam[u8Index].stStaticAe.u32AutoExpTimeMax;
     stExposureAttr.stAuto.stSysGainRange.u32Max = g_astScenePipeParam[u8Index].stStaticAe.u32AutoSysGainMax;
+
+    stExposureAttr.stAuto.stDGainRange.u32Max = g_astScenePipeParam[u8Index].stStaticAe.u32AutoDGainMax;
+    stExposureAttr.stAuto.stISPDGainRange.u32Max = g_astScenePipeParam[u8Index].stStaticAe.u32AutoISPDGainMax;
+
     stExposureAttr.stAuto.u8Speed = g_astScenePipeParam[u8Index].stStaticAe.u8AutoSpeed;
     stExposureAttr.stAuto.u8Tolerance = g_astScenePipeParam[u8Index].stStaticAe.u8AutoTolerance;
     stExposureAttr.stAuto.stAEDelayAttr.u16BlackDelayFrame = g_astScenePipeParam[u8Index].stStaticAe.u16AutoBlackDelayFrame;

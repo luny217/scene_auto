@@ -163,6 +163,38 @@ HI_S32 SCENE_LoadStaticAE(const HI_CHAR *pszIniModule, HI_SCENE_STATIC_AE_S *pst
         pstStaticAe->u32AutoSysGainMax = (HI_U32)s32Value;
     }
 
+    snprintf(aszIniNodeName, SCENE_INIPARAM_NODE_NAME_LEN, "static_ae:AutoDGainMax");/*AutoDGainMax*/
+    s32Ret = HI_CONFACCESS_GetString(SCENE_INIPARAM, pszIniModule, aszIniNodeName, NULL, &pszString);
+    SCENE_INIPARAM_CHECK_LOAD_RESULT(s32Ret, aszIniNodeName);
+    if (HI_NULL != pszString)
+    {
+        free(pszString);
+        pszString = HI_NULL;
+        s32Ret = HI_CONFACCESS_GetInt(SCENE_INIPARAM, pszIniModule, "static_ae:AutoDGainMax", 0, &s32Value);
+        if (HI_SUCCESS != s32Ret)
+        {
+            MLOGE("load static_ae:AutoDGainMax failed\n");
+            return HI_FAILURE;
+        }
+        pstStaticAe->u32AutoDGainMax = (HI_U32)s32Value;
+    }
+
+    snprintf(aszIniNodeName, SCENE_INIPARAM_NODE_NAME_LEN, "static_ae:AutoISPDGainMax");/*AutoISPDGainMax*/
+    s32Ret = HI_CONFACCESS_GetString(SCENE_INIPARAM, pszIniModule, aszIniNodeName, NULL, &pszString);
+    SCENE_INIPARAM_CHECK_LOAD_RESULT(s32Ret, aszIniNodeName);
+    if (HI_NULL != pszString)
+    {
+        free(pszString);
+        pszString = HI_NULL;
+        s32Ret = HI_CONFACCESS_GetInt(SCENE_INIPARAM, pszIniModule, "static_ae:AutoISPDGainMax", 0, &s32Value);
+        if (HI_SUCCESS != s32Ret)
+        {
+            MLOGE("load static_ae:AutoISPDGainMax failed\n");
+            return HI_FAILURE;
+        }
+        pstStaticAe->u32AutoISPDGainMax = (HI_U32)s32Value;
+    }
+
     snprintf(aszIniNodeName, SCENE_INIPARAM_NODE_NAME_LEN, "static_ae:AutoExpTimeMax");/*AutoExpTimeMax*/
     s32Ret = HI_CONFACCESS_GetString(SCENE_INIPARAM, pszIniModule, aszIniNodeName, NULL, &pszString);
     SCENE_INIPARAM_CHECK_LOAD_RESULT(s32Ret, aszIniNodeName);

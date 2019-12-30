@@ -68,6 +68,8 @@ typedef struct hiSCENE_STATIC_AE_S
     HI_U8 u8AERunInterval;
     HI_U32 u32AutoExpTimeMax;
     HI_U32 u32AutoSysGainMax;
+    HI_U32 u32AutoDGainMax;
+    HI_U32 u32AutoISPDGainMax;
     HI_U8 u8AutoSpeed;
     HI_U8 u8AutoTolerance;
     HI_U16 u16AutoBlackDelayFrame;

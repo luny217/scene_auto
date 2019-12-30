@@ -86,19 +86,19 @@ HI_S32 main(HI_S32 argc, HI_CHAR *argv[])
         printf("3.scene resume and set a new media type\n");
         printf("4.exit the sample\n");
 
-        s32choice = -1;
+        s32choice = 1;
         fgets(aszinput, 10, stdin);
         sscanf(aszinput, "%d", &s32choice);
 
         switch (s32choice)
         {
             case 1:
-                printf("When We Start SceneAuto, we neen to set video Pipe mode\n");
-                printf("Please input a valid videomode index, without which we couldn't work  effectively.\n");
-                s32choice = -1;
-                fgets(aszinput, 10, stdin);
-                sscanf(aszinput, "%d", &s32choice);
-                printf("videomode type has already been input.\n");
+                //printf("When We Start SceneAuto, we neen to set video Pipe mode\n");
+                //printf("Please input a valid videomode index, without which we couldn't work  effectively.\n");
+                s32choice = 0;
+                //fgets(aszinput, 10, stdin);
+                //sscanf(aszinput, "%d", &s32choice);
+                //printf("videomode type has already been input.\n");
                 s32ret = HI_SCENE_CreateParam(pszdirname, &stSceneParam, &stVideoMode);
                 if (HI_SUCCESS != s32ret)
                 {
